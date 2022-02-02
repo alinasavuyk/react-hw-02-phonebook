@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid'
 import ContactList from "./ContactForm/ContactList";
-import contacts from "./ContactForm/contacts.json"
+import contacts from "./Data/contacts.json"
 import ContactForm  from './ContactForm/ContactForm';
 import ContactFilter  from './ContactForm/ContactFilter';
 import s from "./ContactForm/contactForm.module.css"
@@ -23,18 +23,14 @@ deleteContact=(contactId)=>{
         name,
         number
     }
-    const normalaze=this.state.contacts.find(e=>
-         e.name===name)
-    console.log(normalaze)
-  if(normalaze){
-        alert(`${name} is already in contacts`)
-    }
-    else{
+    const normalaze=this.state.contacts.find(e=> e.name===name||e.number===number);
+    
+    normalaze?alert(`${name} is already in contacts ${number}`):
     this.setState(prevState=>({
         contacts: [todo, ...prevState.contacts],
     }))}
     
-    }
+    
 
     changeFilter=(e)=>{
         this.setState({
@@ -55,12 +51,11 @@ render(){
     
     return (
         <div className={s.container}>
-             <h2>Phonebook</h2>
+        <h2>Phonebook</h2>
         <ContactForm onSubmit={this.formSubmitHandler} onSubmitAdd={this.addContact}/>
-            <h2>Contacts</h2>
-          <ContactFilter value={filter} onChange={this.changeFilter}/>  
-        <ContactList contacts={filterContacts}
-        ondeleteContact={this.deleteContact}/> 
+        <h2>Contacts</h2>
+        <ContactFilter value={filter} onChange={this.changeFilter}/>  
+        <ContactList contacts={filterContacts} ondeleteContact={this.deleteContact}/> 
         </div>
     )
 }}

@@ -1,5 +1,6 @@
 import React from 'react';
-import s from './ContactList.module.css'
+import s from "./contactForm.module.css"
+
 
 
 const ContactList =({contacts, ondeleteContact})=>(
